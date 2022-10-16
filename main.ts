@@ -73,7 +73,7 @@ let runservo = 0
 let adjNum = 0
 let servoNum = 0
 let loop = false
-basic.showIcon(IconNames.Happy)
+basic.showIcon(IconNames.Heart)
 loop = true
 basic.forever(function () {
     servoAdjust()
