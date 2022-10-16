@@ -1,53 +1,78 @@
-"""
-
-How to use
-
-1.Push A to start correction
-
-2.Push A or B to move each servo
-
-3.Push A+B to switch to next servo
-
-4.Loop
-
-5.Ends when smile is displayed
-
-6.Reset, then Push B to walk
-
-If PLEN does not fall over, setting is complete
-
-"""
 def servoAdjust():
-    global adjNum, servoNum, loop
-    adjNum = 0
+    global servoNum, adjNum, runservo
     servoNum = 0
-    basic.show_number(servoNum)
-    loop = True
+    adjNum = 0
     while loop:
         if input.button_is_pressed(Button.AB):
-            plenbit.save_positon(servoNum, adjNum)
-            servoNum += 1
-            adjNum = 0
-            basic.show_number(servoNum)
+            adjNum = runservo
+            basic.show_number(adjNum)
         elif input.button_is_pressed(Button.A):
-            adjNum += 1
-            adjNum = plenbit.servo_adjust(servoNum, adjNum)
+            servoNum += 1
+            runservo = servoNum
+            basic.show_number(runservo)
         elif input.button_is_pressed(Button.B):
-            adjNum += -1
-            adjNum = plenbit.servo_adjust(servoNum, adjNum)
-        elif servoNum > 7:
-            basic.show_icon(IconNames.HAPPY)
-            basic.pause(2000)
-            loop = False
-loop = False
-servoNum = 0
+            servoNum += -1
+            runservo = servoNum
+            basic.show_number(runservo)
+        elif servoNum > 4:
+            basic.show_icon(IconNames.SAD)
+            basic.show_number(servoNum)
+        if adjNum == 1:
+            basic.show_number(servoNum)
+            kitronik_i2c_16_servo.servo_write(kitronik_i2c_16_servo.Servos.SERVO1, 89)
+            basic.pause(100)
+            kitronik_i2c_16_servo.servo_write(kitronik_i2c_16_servo.Servos.SERVO1, 4)
+            basic.show_leds("""
+                # # . # #
+                                # # # # #
+                                # # # # #
+                                . . # # #
+                                . . # # #
+            """)
+            basic.pause(50)
+        elif adjNum == 2:
+            basic.show_number(servoNum)
+            kitronik_i2c_16_servo.servo_write(kitronik_i2c_16_servo.Servos.SERVO2, 57)
+            basic.pause(100)
+            kitronik_i2c_16_servo.servo_write(kitronik_i2c_16_servo.Servos.SERVO2, 0)
+            basic.show_leds("""
+                # # . # #
+                                # # # # #
+                                # # # # #
+                                # # # . .
+                                # # # . .
+            """)
+        elif adjNum == 3:
+            basic.show_number(servoNum)
+            kitronik_i2c_16_servo.servo_write(kitronik_i2c_16_servo.Servos.SERVO3, 138)
+            basic.pause(100)
+            kitronik_i2c_16_servo.servo_write(kitronik_i2c_16_servo.Servos.SERVO3, 0)
+            basic.show_leds("""
+                # # # # .
+                                # # # # .
+                                . . # # .
+                                . . # # .
+                                . . # # .
+            """)
+        elif adjNum == 4:
+            basic.show_number(servoNum)
+            kitronik_i2c_16_servo.servo_write(kitronik_i2c_16_servo.Servos.SERVO5, 61)
+            basic.pause(100)
+            kitronik_i2c_16_servo.servo_write(kitronik_i2c_16_servo.Servos.SERVO5, 128)
+            basic.show_leds("""
+                . # # # #
+                                . # # # #
+                                . # # . .
+                                . # # . .
+                                . # # . .
+            """)
+runservo = 0
 adjNum = 0
-plenbit.servo_initial_set()
+servoNum = 0
+loop = False
 basic.show_icon(IconNames.HAPPY)
+loop = True
 
 def on_forever():
-    if input.button_is_pressed(Button.A):
-        servoAdjust()
-    elif input.button_is_pressed(Button.B):
-        plenbit.std_motion(plenbit.StdMotions.WALK_FORWARD)
+    servoAdjust()
 basic.forever(on_forever)
