@@ -19,9 +19,9 @@ function servoAdjust () {
         }
         if (adjNum == 1) {
             basic.showNumber(servoNum)
-            kitronik_i2c_16_servo.servoWrite(kitronik_i2c_16_servo.Servos.Servo1, 89)
+            UDriver_PCA9685.move_servo(UDriver_PCA9685.Pin.P1, 89)
             basic.pause(100)
-            kitronik_i2c_16_servo.servoWrite(kitronik_i2c_16_servo.Servos.Servo1, 4)
+            UDriver_PCA9685.move_servo(UDriver_PCA9685.Pin.P1, 4)
             basic.showLeds(`
                 # # . # #
                 # # # # #
@@ -32,9 +32,9 @@ function servoAdjust () {
             basic.pause(50)
         } else if (adjNum == 2) {
             basic.showNumber(servoNum)
-            kitronik_i2c_16_servo.servoWrite(kitronik_i2c_16_servo.Servos.Servo2, 57)
+            UDriver_PCA9685.move_servo(UDriver_PCA9685.Pin.P2, 57)
             basic.pause(100)
-            kitronik_i2c_16_servo.servoWrite(kitronik_i2c_16_servo.Servos.Servo2, 0)
+            UDriver_PCA9685.move_servo(UDriver_PCA9685.Pin.P2, 57)
             basic.showLeds(`
                 # # . # #
                 # # # # #
@@ -44,9 +44,9 @@ function servoAdjust () {
                 `)
         } else if (adjNum == 3) {
             basic.showNumber(servoNum)
-            kitronik_i2c_16_servo.servoWrite(kitronik_i2c_16_servo.Servos.Servo3, 138)
+            UDriver_PCA9685.move_servo(UDriver_PCA9685.Pin.P3, 138)
             basic.pause(100)
-            kitronik_i2c_16_servo.servoWrite(kitronik_i2c_16_servo.Servos.Servo3, 0)
+            UDriver_PCA9685.move_servo(UDriver_PCA9685.Pin.P3, 4)
             basic.showLeds(`
                 # # # # .
                 # # # # .
@@ -56,12 +56,12 @@ function servoAdjust () {
                 `)
         } else if (adjNum == 4) {
             basic.showNumber(servoNum)
-            kitronik_i2c_16_servo.servoWrite(kitronik_i2c_16_servo.Servos.Servo5, 61)
+            UDriver_PCA9685.move_servo(UDriver_PCA9685.Pin.P3, 138)
             basic.pause(100)
-            kitronik_i2c_16_servo.servoWrite(kitronik_i2c_16_servo.Servos.Servo5, 128)
+            UDriver_PCA9685.move_servo(UDriver_PCA9685.Pin.P3, 4)
             basic.showLeds(`
                 . # # # #
-                . # # # #
+                . # # # .
                 . # # . .
                 . # # . .
                 . # # . .
